@@ -1,0 +1,20 @@
+.{
+    .name = .gperf,
+    .version = "3.3.0",
+    .minimum_zig_version = "0.14.0",
+    .fingerprint = 0x71cb2a0e7dc34746,
+    .dependencies = .{
+        .gperf = .{
+            .url = "http://ftp.gnu.org/pub/gnu/gperf/gperf-3.3.tar.gz",
+            .hash = "N-V-__8AALGeYgBoj3QWjO0UdAaOnQT1glWgpKrGdBMbNvtQ",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "lib2",
+        "src2",
+        "LICENSE",
+        "README.md",
+    },
+}
