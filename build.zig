@@ -7,10 +7,10 @@ pub fn build(b: *std.Build) !void {
     const upstream = b.dependency("gperf", .{});
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
-    
+
     const linkage = b.option(std.builtin.LinkMode, "linkage", "Link mode") orelse .dynamic;
 
-    const libgp = b.addLibrary(.{        
+    const libgp = b.addLibrary(.{
         .linkage = .static,
         .name = "gp",
         .root_module = b.createModule(.{
@@ -21,7 +21,7 @@ pub fn build(b: *std.Build) !void {
     });
 
     libgp.addIncludePath(upstream.path("lib"));
-    libgp.addIncludePath(b.path("lib2"));
+    libgp.addIncludePath(b.path("lib"));
     const alloca_h = b.addConfigHeader(.{
         .style = .{ .autoconf_at =  upstream.path("lib/alloca.in.h") },
         .include_path = "alloca.h",
@@ -33,22 +33,19 @@ pub fn build(b: *std.Build) !void {
     libgp.addCSourceFiles(.{
         .root = upstream.path("lib"),
         .files = &.{
-            "basename-lgpl.c", 
-            "cloexec.c", 
+            //"basename-lgpl.c",
+            "cloexec.c",
             "exitfail.c",
-            "fd-hook.c",
-            "free.c",
-            "fstat.c",
-            "getopt.c",
-            "getopt1.c",
+            //"fd-hook.c",
+            //"free.c",
+            //"fstat.c",
+            //"getopt.c",
+            //"getopt1.c",
             "gl_hash_map.c",
-            "malloca.c",
+            //"malloca.c",
             "gl_map.c",
             "memset_explicit.c",
             "read-file.c",
-            "stat-time.c",
-            "stdlib.c",
-            "unistd.c",
             "xalloc-die.c",
             "gl_xmap.c",
             "xsize.c",
@@ -58,7 +55,7 @@ pub fn build(b: *std.Build) !void {
             "open.c",
         },
     });
-    
+
     const gperf = b.addExecutable(.{
         .linkage = linkage,
         .name = "gperf",
@@ -72,22 +69,22 @@ pub fn build(b: *std.Build) !void {
 
     gperf.addIncludePath(upstream.path("src"));
     gperf.addIncludePath(upstream.path("lib"));
-    gperf.addIncludePath(b.path("src2"));
+    gperf.addIncludePath(b.path("src"));
     gperf.addCSourceFiles(.{
         .root = upstream.path("src"),
         .files = &.{
+            "version.cc",
+            "positions.cc",
+            "options.cc",
+            "keyword.cc",
+            "keyword-list.cc",
+            "input.cc",
             "arraylist.cc",
             "bool-array.cc",
             "hash-table.cc",
-            "input.cc",
-            "keyword-list.cc",
-            "keyword.cc",
-            "main.cc",
-            "options.cc",
-            "output.cc",
-            "positions.cc",
             "search.cc",
-            "version.cc"
+            "output.cc",
+            "main.cc",
         },
         .flags = &.{},
         .language = .cpp,
