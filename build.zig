@@ -33,16 +33,9 @@ pub fn build(b: *std.Build) !void {
     libgp.addCSourceFiles(.{
         .root = upstream.path("lib"),
         .files = &.{
-            //"basename-lgpl.c",
             "cloexec.c",
             "exitfail.c",
-            //"fd-hook.c",
-            //"free.c",
-            //"fstat.c",
-            //"getopt.c",
-            //"getopt1.c",
             "gl_hash_map.c",
-            //"malloca.c",
             "gl_map.c",
             "memset_explicit.c",
             "read-file.c",
