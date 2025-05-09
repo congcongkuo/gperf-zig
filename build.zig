@@ -12,7 +12,7 @@ pub fn build(b: *std.Build) !void {
 
     const libgp = b.addLibrary(.{
         .linkage = .static,
-        .name = "gp",
+        .name = "libgp",
         .root_module = b.createModule(.{
             .target = target,
             .optimize = optimize,
@@ -22,14 +22,6 @@ pub fn build(b: *std.Build) !void {
 
     libgp.addIncludePath(upstream.path("lib"));
     libgp.addIncludePath(b.path("lib"));
-    const alloca_h = b.addConfigHeader(.{
-        .style = .{ .autoconf_at =  upstream.path("lib/alloca.in.h") },
-        .include_path = "alloca.h",
-    }, .{
-        .HAVE_ALLOCA_H = 1,
-    });
-    libgp.addConfigHeader(alloca_h);
-
     libgp.addCSourceFiles(.{
         .root = upstream.path("lib"),
         .files = &.{
